@@ -1,0 +1,9 @@
+mss
+Pillow
+pytesseract
+opencv-python
+pyautogui
+pydirectinput
+pygetwindow
+requests
+# Add other libraries needed for API calls later
