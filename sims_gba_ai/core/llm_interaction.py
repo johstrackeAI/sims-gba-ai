@@ -1,6 +1,7 @@
 import requests
 import base64
 import io
+import json
 from PIL import Image
 
 # Import settings from the config file
@@ -84,6 +85,7 @@ def get_llm_suggestion(image: Image.Image) -> str | None:
         return None
 
     try:
+        print(f"LLM Input Payload: {json.dumps(payload, indent=2)}") # DEBUG
         response = requests.post(api_url, headers=headers, json=payload, timeout=30) # Added timeout
         response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
 
@@ -99,7 +101,8 @@ def get_llm_suggestion(image: Image.Image) -> str | None:
 
             # Validate against the allowed buttons
             if suggestion_text in settings.VALID_GBA_BUTTONS:
-                print(f"LLM Suggestion: {suggestion_text}")
+                print(f"LLM Output Suggestion: {suggestion_text}") # DEBUG
+                print(f"LLM Suggestion: {suggestion_text}") # Original print
                 return suggestion_text
             else:
                 print(f"LLM Response ('{suggestion_text}') not a valid button.")
